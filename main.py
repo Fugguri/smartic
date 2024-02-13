@@ -14,8 +14,6 @@ from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
 
 async def register_all_middlewares(dp, config, keyboards, db, bot,):
-    # dp.middleware.setup(is_user_register.IsUserRegisterMiddleware(db=db,))
-    # dp.middleware.setup(activity_updater.ActivityUpdaterMiddleware(db=db))
     dp.middleware.setup(environment.EnvironmentMiddleware(
         config=config, db=db, keyboards=keyboards, bot=bot))
     dp.middleware.setup(LoggingMiddleware())
@@ -50,7 +48,7 @@ async def main():
     register_all_handlers(dp, kbs, db)
 
     # start
-    dp.skip_updates = False
+    dp.skip_updates = True
     try:
         await dp.start_polling()
     finally:

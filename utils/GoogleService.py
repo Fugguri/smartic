@@ -8,7 +8,6 @@ from dataclasses import dataclass
 class GoogleService:
     def __init__(self) -> None:
         self.gc = gspread.service_account("google_credentials.json")
-        # self.sh = self.gc.open("test+smart")
         self.sh = self.gc.open_by_url(
             "https://docs.google.com/spreadsheets/d/1lleHcwZf8t-RReaoEn2-u0m5-fu0-1YqpJ98tycMM3k/edit#gid=0")
 

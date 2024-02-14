@@ -292,12 +292,12 @@ class AssistantService:
                 thread_id=thread.id,
                 run_id=run.id
             )
-            print(counter)
+
             counter += 1
             action = retrieve.required_action
             if action:
                 lead = action.submit_tool_outputs.tool_calls[0].function.arguments
-
+                print(lead)
                 # await message.bot.send_message(-1002137202749, action.submit_tool_outputs.tool_calls[0].function.arguments)
                 await google.save_lead(
                     action.submit_tool_outputs.tool_calls[0].function.arguments)

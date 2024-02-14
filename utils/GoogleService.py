@@ -13,19 +13,23 @@ class GoogleService:
 
     async def save_lead(self, data: dict):
         print(2)
-        lead = Lead(
-            goal=data.get("education_goal"),
-            work_with=data.get("work_with"),
-            Education_important=data.get("Education_important"),
-            work_specific=data.get("work_specific"),
-            personal_improvements_goals=data.get(
-                "personal_improvements_goals"),
-            budget=data.get("budget"),
-            start_education=data.get("start_education"),
-            name=data.get("name"),
-            phone=data.get("phone"),
-            email=data.get("email"),
-        )
+        try:
+            lead = Lead(
+                goal=data.get("education_goal"),
+                work_with=data.get("work_with"),
+                Education_important=data.get("Education_important"),
+                work_specific=data.get("work_specific"),
+                personal_improvements_goals=data.get(
+                    "personal_improvements_goals"),
+                budget=data.get("budget"),
+                start_education=data.get("start_education"),
+                name=data.get("name"),
+                phone=data.get("phone"),
+                email=data.get("email"),
+            )
+        except Exception as ex:
+            print(ex)
+
         print(2)
 
         print(lead)

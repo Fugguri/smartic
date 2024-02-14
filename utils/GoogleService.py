@@ -41,7 +41,7 @@ class GoogleService:
 @dataclass
 class Lead:
     goal: str = None
-    work_with: str = None
+    work_with: str = "-"
     Education_important: str = None
     work_specific: str = "-"
     personal_improvements_goals: str = None

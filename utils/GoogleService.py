@@ -14,7 +14,7 @@ class GoogleService:
     async def save_lead(self, data: dict):
         print(1)
         lead = Lead(
-            goal=data.get("goal"),
+            goal=data.get("education_goal"),
             work_with=data.get("work_with"),
             Education_important=data.get("Education_important"),
             work_specific=data.get("work_specific"),
@@ -29,7 +29,7 @@ class GoogleService:
 
         ws = self.sh.get_worksheet(0)
         print(lead)
-        print(ws.append_row(lead))
+        print(ws.append_row(lead.as_tuple()))
 
 
 @dataclass
@@ -65,12 +65,11 @@ class Lead:
 
 if __name__ == "__main__":
 
-    lead = from_dict(data_class=Lead, data={"education_goal": "новую профессию",
-                                            "work_with": "взрослые",
-                                            "Education_important": "гибкий график",
-                                            "budget": "от 5000 руб/мес",
-                                            "start_education": "в течение месяца", "name": "никита", "phone": "89502213750", "email": "fygguri@icloud"})
+    data = {"education_goal": "новую профессию",
+            "work_with": "взрослые",
+            "Education_important": "гибкий график",
+            "budget": "от 5000 руб/мес",
+            "start_education": "в течение месяца", "name": "никита", "phone": "89502213750", "email": "fygguri@icloud"}
 
-    print(lead)
-    # gs = GoogleService()
-    # asyncio.run(gs.save_lead(lead.as_tuple()))
+    gs = GoogleService()
+    asyncio.run(gs.save_lead(data))

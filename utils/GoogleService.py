@@ -28,9 +28,9 @@ class GoogleService:
         )
         print(2)
 
+        print(lead)
         ws = self.sh.get_worksheet(0)
         print(ws)
-        print(lead)
         print(ws.append_row(lead.as_tuple()))
 
 

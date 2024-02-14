@@ -327,8 +327,3 @@ class AssistantService:
                 return messages.data[index-1].content[0].text.value.replace("【11†источник】", "").replace("**", "").replace("【17†source】", "")
             index += 1
         return None
-
-
-assist = AssistantService(
-    "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")
-print(assist)

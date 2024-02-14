@@ -1,27 +1,64 @@
 import asyncio
-# import gspread_asyncio
-from google.oauth2.service_account import Credentials
+import gspread
+import datetime
+from dataclasses import dataclass
 
 
 class GoogleService:
     def __init__(self) -> None:
-        pass
+        self.gc = gspread.service_account("google_credentials.json")
+        # self.sh = self.gc.open("test+smart")
+        self.sh = self.gc.open_by_url(
+            "https://docs.google.com/spreadsheets/d/1lleHcwZf8t-RReaoEn2-u0m5-fu0-1YqpJ98tycMM3k/edit#gid=0")
 
-    async def save_lead(lead):
-        ...
+    async def save_lead(self, lead):
+        ws = self.sh.get_worksheet(0)
+        print(lead)
+        ws.append_row(lead)
 
 
-"""Инфа следующая
+@dataclass
+class Lead:
+    goal: str = None
+    work_with: str = None
+    Education_important: str = None
+    work_specific: str = "-"
+    personal_improvements_goals: str = None
+    budget: str = None
+    start_education: str = None
+    name: str = None
+    phone: str = None
+    email: str = None
+    date: str = str(datetime.datetime.strftime(
+        datetime.datetime.now(), "%d-%m-%Y, %H:%M:%S"))
 
-По вопросам:
+    def as_tuple(self):
+        return [
+            self.goal,
+            self.work_with,
+            self.Education_important,
+            self.work_specific,
+            self.personal_improvements_goals,
+            self.budget,
+            self.start_education,
+            self.name,
+            self.phone,
+            self.email,
+            self.date,
+        ]
 
-1. goal
-2. work_with
-3. Education_important
-4. work_specific
-5. personal_improvements_goals
-6. budget
-7. start_education
-8. Имя
-9. Телефон
-10. Почта (почта должна быть обязательной для заполнения, без нее не получиться создать заявку в геткурс)"""
+
+if __name__ == "__main__":
+
+    lead = Lead(goal="личное развитие",
+                work_with="взрослые",
+                Education_important='практика',
+                personal_improvements_goals="самопознание",
+                budget="4000",
+                start_education="month",
+                name="Никита",
+                phone="89999999999",
+                email="test@test.com")
+
+    gs = GoogleService()
+    asyncio.run(gs.save_lead(lead.as_tuple()))

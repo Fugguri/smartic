@@ -1,17 +1,19 @@
+from .GoogleService import GoogleService
 import re
 from openai import OpenAI
 import os
 import asyncio
 import httpx
 proxy_url = "http://9gfWr9:g0LSUy@131.108.17.194:9799/"
+google = GoogleService()
 
 
 class AssistantService:
 
     def __init__(self, api_key, model_name="gpt-4-turbo-preview"):
         os.environ['OPENAI_API_KEY'] = api_key
-        # os.environ['HTTP_PROXY'] = proxy_url
-        # os.environ['HTTPS_PROXY'] = proxy_url
+        os.environ['HTTP_PROXY'] = proxy_url
+        os.environ['HTTPS_PROXY'] = proxy_url
         # Инициализация OpenAI с использованием прокси
         self.users_threads = dict()
 
@@ -301,7 +303,8 @@ class AssistantService:
                 print(
                     action.submit_tool_outputs.tool_calls[0].function.arguments)
                 # await message.bot.send_message(-1002137202749, action.submit_tool_outputs.tool_calls[0].function.arguments)
-
+                google.save_lead(
+                    action.submit_tool_outputs.tool_calls[0].function.arguments)
                 self.submin_function(
                     thread, run, action.submit_tool_outputs.tool_calls[0])
             status = retrieve.completed_at
@@ -312,7 +315,7 @@ class AssistantService:
         )
 
         answer = self.__get_answer_from_messages(messages, user_message.id)
-        print(answer)
+
         if not answer:
             return messages.data[0].content[0].text.value
         return answer
@@ -324,3 +327,8 @@ class AssistantService:
                 return messages.data[index-1].content[0].text.value.replace("【11†источник】", "").replace("**", "").replace("【17†source】", "")
             index += 1
         return None
+
+
+assist = AssistantService(
+    "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")
+print(assist)

@@ -292,7 +292,7 @@ class AssistantService:
                 thread_id=thread.id,
                 run_id=run.id
             )
-
+            print(1)
             counter += 1
             action = retrieve.required_action
             if action:

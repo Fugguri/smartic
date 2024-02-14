@@ -1,3 +1,4 @@
+from dacite import from_dict
 import asyncio
 import gspread
 import datetime
@@ -11,7 +12,8 @@ class GoogleService:
         self.sh = self.gc.open_by_url(
             "https://docs.google.com/spreadsheets/d/1lleHcwZf8t-RReaoEn2-u0m5-fu0-1YqpJ98tycMM3k/edit#gid=0")
 
-    async def save_lead(self, lead):
+    async def save_lead(self, data: dict):
+        lead = from_dict(data_class=Lead, data=data)
         ws = self.sh.get_worksheet(0)
         print(lead)
         ws.append_row(lead)
@@ -50,15 +52,12 @@ class Lead:
 
 if __name__ == "__main__":
 
-    lead = Lead(goal="личное развитие",
-                work_with="взрослые",
-                Education_important='практика',
-                personal_improvements_goals="самопознание",
-                budget="4000",
-                start_education="month",
-                name="Никита",
-                phone="89999999999",
-                email="test@test.com")
+    lead = from_dict(data_class=Lead, data={"education_goal": "новую профессию",
+                                            "work_with": "взрослые",
+                                            "Education_important": "гибкий график",
+                                            "budget": "от 5000 руб/мес",
+                                            "start_education": "в течение месяца", "name": "никита", "phone": "89502213750", "email": "fygguri@icloud"})
 
-    gs = GoogleService()
-    asyncio.run(gs.save_lead(lead.as_tuple()))
+    print(lead)
+    # gs = GoogleService()
+    # asyncio.run(gs.save_lead(lead.as_tuple()))

@@ -300,8 +300,8 @@ class AssistantService:
             counter += 1
             action = retrieve.required_action
             if action:
-                print(
-                    action.submit_tool_outputs.tool_calls[0].function.arguments)
+                lead = action.submit_tool_outputs.tool_calls[0].function.arguments
+
                 # await message.bot.send_message(-1002137202749, action.submit_tool_outputs.tool_calls[0].function.arguments)
                 google.save_lead(
                     action.submit_tool_outputs.tool_calls[0].function.arguments)
@@ -327,3 +327,10 @@ class AssistantService:
                 return messages.data[index-1].content[0].text.value.replace("【11†источник】", "").replace("**", "").replace("【17†source】", "")
             index += 1
         return None
+
+
+{"education_goal": "новую профессию", 
+ "work_with": "взрослые", 
+ "Education_important": "гибкий график", 
+ "budget": "от 5000 руб/мес",
+    "start_education": "в течение месяца", "name": "никита", "phone": "89502213750", "email": "fygguri@icloud"}

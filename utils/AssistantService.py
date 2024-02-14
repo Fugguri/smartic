@@ -301,8 +301,8 @@ class AssistantService:
                 # await message.bot.send_message(-1002137202749, action.submit_tool_outputs.tool_calls[0].function.arguments)
                 await google.save_lead(
                     action.submit_tool_outputs.tool_calls[0].function.arguments)
-                self.submin_function(
-                    thread, run, action.submit_tool_outputs.tool_calls[0])
+                print(self.submin_function(
+                    thread, run, action.submit_tool_outputs.tool_calls[0]))
             status = retrieve.completed_at
             await asyncio.sleep(1)
 

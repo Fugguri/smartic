@@ -299,7 +299,7 @@ class AssistantService:
                 lead = action.submit_tool_outputs.tool_calls[0].function.arguments
 
                 # await message.bot.send_message(-1002137202749, action.submit_tool_outputs.tool_calls[0].function.arguments)
-                google.save_lead(
+                await google.save_lead(
                     action.submit_tool_outputs.tool_calls[0].function.arguments)
                 self.submin_function(
                     thread, run, action.submit_tool_outputs.tool_calls[0])

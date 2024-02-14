@@ -12,7 +12,7 @@ class GoogleService:
             "https://docs.google.com/spreadsheets/d/1lleHcwZf8t-RReaoEn2-u0m5-fu0-1YqpJ98tycMM3k/edit#gid=0")
 
     async def save_lead(self, data: dict):
-        print(1)
+        print(2)
         lead = Lead(
             goal=data.get("education_goal"),
             work_with=data.get("work_with"),
@@ -26,6 +26,7 @@ class GoogleService:
             phone=data.get("phone"),
             email=data.get("email"),
         )
+        print(2)
 
         ws = self.sh.get_worksheet(0)
         print(lead)
